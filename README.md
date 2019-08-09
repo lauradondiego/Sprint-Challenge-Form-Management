@@ -25,14 +25,23 @@ In the challenge for this Sprint, you will demonstrate proficiency by creating a
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] What are the required parts of class components?
+      <!-- class App extends React.Component {
+              constructor() {
+              super();
+              }
+              render() {} -->
 
 - [ ] Name at least three lifecycle methods?
+      componentWillMount, componentDidMount, componentDidUpdate
 
 - [ ] Why are forms used so often in web applications and software?
+      Because everything now prompts a user to sign up or login and we need a form to perform these actions in our web pages or apps.
 
 - [ ] What advantages are there by using a forms library like Formik?
+      It really simplifies the code. We don't need handler functions or to write out all the fields by hand each and every time. We can consolidate code and re use it.
 
 - [ ] Why do we write tests for our apps?
+      To make sure that the code is working every step of the way. We need to test our code to ensure quality from beginning to end.
 
 ## Project Set Up
 

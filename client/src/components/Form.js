@@ -18,6 +18,7 @@ const UserForm = ({ errors, touched, status }) => {
     <div className="user-form">
       <h1>Register Now!</h1>
       <Form>
+        {/* <div>{users.map(eachUser => (user = { eachUser }))}</div> */}
         <Field type="text" name="username" placeholder="Username" />
         {touched.username && errors.username && (
           <p className="error">{errors.username}</p>
@@ -33,11 +34,13 @@ const UserForm = ({ errors, touched, status }) => {
 
       <Card>
         <Card.Content>
-          <Card.Header>Your User Information:</Card.Header>
-          {user.map(users => (
-            <div key={users.id}>
-              <p>Username: {users.username}</p>
-              <p>Password: {users.password} </p>
+          <Card.Header>Recipes:</Card.Header>
+          {user.map(recipe => (
+            <div key={recipe.id}>
+              <p>Name: {recipe.name}</p>
+              <p>Course: {recipe.course} </p>
+              <p>Technique: {recipe.technique} </p>
+              <p>Ingredients: {recipe.ingredients} </p>
             </div>
           ))}
         </Card.Content>
@@ -63,19 +66,21 @@ const FormikForm = withFormik({
       .required("Password is required!")
   }),
 
-  handleSubmit(values, { setStatus, setErrors, resetForm }) {
-    if (values.username === "cats") {
-      setErrors({ username: "That email is already taken" });
-    } else {
-      axios
-        .post("http://localhost:5000/api/register", values)
-        .then(response => {
-          console.log("register data", response.data);
-          setStatus(response.data);
-          resetForm();
-        })
-        .catch(error => console.log("error", error.response));
-    }
+  handleSubmit(values, { setStatus, resetForm }) {
+    axios.post("http://localhost:5000/api/register", values).then(response => {
+      console.log("register data", response.data);
+      setStatus(response.data);
+      resetForm();
+    });
+    axios
+      .get("http://localhost:5000/api/restricted/data")
+      .then(response => {
+        const recipes = response.data;
+        console.log("Recipes Data", recipes);
+        setStatus(response.data);
+      })
+
+      .catch(error => console.log("error", error.response));
   }
 })(UserForm);
 
