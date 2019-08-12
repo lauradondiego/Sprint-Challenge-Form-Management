@@ -1,16 +1,11 @@
-import Form from "./Form";
+// import { render } from "@testing-library/react";
+// import "@testing-library/react/cleanup-after-each";
+// import React from "react";
+// import App from "./App";
+import { add } from "./Form";
 
 describe("<Form />", () => {
-  it("renders a welcome message", () => {
-    const playersData = [
-      { id: 1, name: "LeBron James" },
-      { id: 2, name: " Donovan Mitchell" },
-      { id: 3, name: "Uncle Drew" }
-    ];
-
-    const comp = render(<Form players={playersData} />);
-
-    const players = comp.getAllByTestId("player");
-    expect(players).toHaveLength(playersData.length);
+  it("renders the POST info", () => {
+    expect(add(3, 2)).toBe(5);
   });
 });

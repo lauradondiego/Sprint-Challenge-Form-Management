@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form, Field, withFormik } from "formik";
 import * as Yup from "yup";
-import { Card } from "semantic-ui-react";
+import CardInfo from "./CardInfo";
 import "semantic-ui-css/semantic.min.css";
 
 const UserForm = ({ errors, touched, status }) => {
-  const [user, setUser] = useState([]);
-
+  const [recipes, setRecipes] = useState([]);
+  console.log(status);
   useEffect(() => {
     if (status) {
-      setUser([...user, status]);
+      setRecipes(status);
     }
   }, [status]);
 
@@ -18,7 +18,6 @@ const UserForm = ({ errors, touched, status }) => {
     <div className="user-form">
       <h1>Register Now!</h1>
       <Form>
-        {/* <div>{users.map(eachUser => (user = { eachUser }))}</div> */}
         <Field type="text" name="username" placeholder="Username" />
         {touched.username && errors.username && (
           <p className="error">{errors.username}</p>
@@ -29,22 +28,9 @@ const UserForm = ({ errors, touched, status }) => {
           <p className="error">{errors.password}</p>
         )}
 
-        <button type="submit">Submit!</button>
+        <button type="submit">Submit</button>
       </Form>
-
-      <Card>
-        <Card.Content>
-          <Card.Header>Recipes:</Card.Header>
-          {user.map(recipe => (
-            <div key={recipe.id}>
-              <p>Name: {recipe.name}</p>
-              <p>Course: {recipe.course} </p>
-              <p>Technique: {recipe.technique} </p>
-              <p>Ingredients: {recipe.ingredients} </p>
-            </div>
-          ))}
-        </Card.Content>
-      </Card>
+      <CardInfo recipes={recipes} />
     </div>
   );
 };
@@ -69,7 +55,6 @@ const FormikForm = withFormik({
   handleSubmit(values, { setStatus, resetForm }) {
     axios.post("http://localhost:5000/api/register", values).then(response => {
       console.log("register data", response.data);
-      setStatus(response.data);
       resetForm();
     });
     axios
@@ -83,5 +68,9 @@ const FormikForm = withFormik({
       .catch(error => console.log("error", error.response));
   }
 })(UserForm);
+
+export const add = (a, b) => {
+  return a + b;
+};
 
 export default FormikForm;
